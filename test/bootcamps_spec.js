@@ -1,3 +1,5 @@
+process.env.NODE_ENV = "test";
+
 let chai = require("chai");
 let expect = require("chai").expect;
 let server = require("../server");
