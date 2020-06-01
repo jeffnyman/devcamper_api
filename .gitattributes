@@ -1,0 +1,4 @@
+# Make sure images are binary
+*.png binary
+*.jpg binary
+*.gif binary
