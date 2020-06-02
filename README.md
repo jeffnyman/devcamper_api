@@ -4,6 +4,14 @@ This project is based on the [DevCamper API](https://github.com/bradtraversy/dev
 
 The goal of this project is to provide a functioning API that serves as the backend for an application that displays developer bootcamp information. My goal in providing this project, based on a well-known example, is to incorporate a testing challenge into it. There is currently no active frontend for this application, so the focus is entirely on building and testing an API.
 
+In order to run the development version, you must have a Mongo database setup, either locally or in the cloud. You then need to provide a `mongodb.env` file in the `config` directory. This file should contain the following environment variable:
+
+```
+MONGO_URI = mongodb+srv://<username>:<password>@devcamper-wisqb.mongodb.net/devcamper?retryWrites=true&w=majority
+```
+
+Here you have to replace `<username>` and `<password>` with your own credentials. Note that this file is part is ignored by Git and thus is not checked in as part of the versioning process.
+
 For development purposes, you can start the server with:
 
 ```

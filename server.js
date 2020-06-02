@@ -2,11 +2,16 @@ const express = require("express");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 const chalk = require("chalk");
+const connectDB = require("./config/db");
+
+dotenv.config({ path: "./config/config.env" });
+dotenv.config({ path: "./config/mongodb.env" });
+
+// Connect to the database.
+connectDB();
 
 // Route files
 const bootcamps = require("./routes/bootcamps");
-
-dotenv.config({ path: "./config/config.env" });
 
 const app = express();
 

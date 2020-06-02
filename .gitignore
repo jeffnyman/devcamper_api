@@ -1,3 +1,6 @@
+# MongoDB credential string
+config/mongodb.env
+
 # Node files
 node_modules/
 
