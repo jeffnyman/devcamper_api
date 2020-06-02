@@ -15,7 +15,9 @@ if (process.env.NODE_ENV !== "test") {
 // Route files
 const bootcamps = require("./routes/bootcamps");
 
+// Express application setup.
 const app = express();
+app.use(express.json());
 
 // Use logger middleware.
 if (process.env.NODE_ENV === "development") {

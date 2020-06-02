@@ -1,3 +1,5 @@
+const Bootcamp = require("../models/Bootcamp");
+
 // Controllers are effectively methods that are associated
 // with certain routes. Each method has to be brought into
 // the routes. Controller functions are middleware functions.
@@ -26,8 +28,17 @@ exports.getBootcamp = (req, res, next) => {
 // @desc    Create new bootcamp.
 // @route   POST /api/v1/bootcamps
 // @access  Private
-exports.createBootcamp = (req, res, next) => {
-  res.status(200).json({ success: true, msg: "Create New Bootcamp" });
+exports.createBootcamp = async (req, res, next) => {
+  try {
+    const bootcamp = await Bootcamp.create(req.body);
+
+    res.status(201).json({
+      success: true,
+      data: bootcamp,
+    });
+  } catch (err) {
+    res.status(400).json({ success: false });
+  }
 };
 
 // @desc    Update existing bootcamp.

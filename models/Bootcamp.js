@@ -68,7 +68,7 @@ const BootcampSchema = new mongoose.Schema({
       "Quality Assurance",
       "Testing",
       "Product Development",
-      "Business Analyst",
+      "Business",
       "Other",
     ],
   },
