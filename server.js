@@ -8,7 +8,9 @@ dotenv.config({ path: "./config/config.env" });
 dotenv.config({ path: "./config/mongodb.env" });
 
 // Connect to the database.
-connectDB();
+if (process.env.NODE_ENV !== "test") {
+  connectDB();
+}
 
 // Route files
 const bootcamps = require("./routes/bootcamps");
