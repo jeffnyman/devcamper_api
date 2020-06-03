@@ -1,11 +1,23 @@
 process.env.NODE_ENV = "test";
 
+const mongoose = require("mongoose");
+const dbHandler = require("./db-handler");
+
 let chai = require("chai");
 let expect = require("chai").expect;
 let server = require("../server");
 let chaiHttp = require("chai-http");
 
 chai.use(chaiHttp);
+
+// Connect to a new in-memory database before running any tests.
+beforeAll(async () => await dbHandler.connect());
+
+// Clear all test data after every test.
+afterEach(async () => await dbHandler.clearDatabase());
+
+// Remove and close the db and server.
+afterAll(async () => await dbHandler.closeDatabase());
 
 describe("Bootcamps", () => {
   afterEach(async () => {
@@ -21,6 +33,25 @@ describe("Bootcamps", () => {
           expect(res.status).to.equal(400);
           expect(res.body.success).to.be.false;
           expect(res.body.msg).to.equal("Unable to create Bootcamp.");
+          done();
+        });
+    });
+
+    it("will save a valid bootcamp", (done) => {
+      let bootcamp = {
+        name: "Test Bootcamp",
+        description: "Test Bootcamp Description",
+        address: "1137 Tester Lane",
+        careers: ["Web Development"],
+      };
+
+      chai
+        .request(server)
+        .post("/api/v1/bootcamps")
+        .send(bootcamp)
+        .end((err, res) => {
+          expect(res.status).to.equal(201);
+          expect(res.body.success).to.be.true;
           done();
         });
     });
