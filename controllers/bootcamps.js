@@ -1,4 +1,5 @@
 const Bootcamp = require("../models/Bootcamp");
+const ErrorResponse = require("../utils/errorResponse");
 
 // Controllers are effectively methods that are associated
 // with certain routes. Each method has to be brought into
@@ -34,15 +35,18 @@ exports.getBootcamp = async (req, res, next) => {
     const bootcamp = await Bootcamp.findById(req.params.id);
 
     if (!bootcamp) {
-      return res
-        .status(400)
-        .json({ success: false, msg: "Bootcamp was not found." });
+      return next(
+        new ErrorResponse(
+          `Bootcamp with ID ${req.params.id} was not found`,
+          404,
+        ),
+      );
     }
 
     res.status(200).json({ success: true, data: bootcamp });
   } catch (err) {
     //res.status(400).json({ success: false, msg: "Bootcamp ID is malformed." });
-    next(err);
+    next(new ErrorResponse(`Bootcamp ID ${req.params.id} is malformed`, 400));
   }
 };
 

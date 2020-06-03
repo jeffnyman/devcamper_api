@@ -60,9 +60,11 @@ describe("Bootcamps", () => {
         .request(server)
         .get("/api/v1/bootcamps/5d713995b721c3bb38c1f5d1")
         .end((err, res) => {
-          expect(res.status).to.equal(400);
+          expect(res.status).to.equal(404);
           expect(res.body.success).to.be.false;
-          expect(res.body.msg).to.equal("Bootcamp was not found.");
+          expect(res.body.error).to.equal(
+            "Bootcamp with ID 5d713995b721c3bb38c1f5d1 was not found",
+          );
           done();
         });
     });
@@ -72,10 +74,11 @@ describe("Bootcamps", () => {
         .request(server)
         .get("/api/v1/bootcamps/5d713995b721c3bb38c1f5d1aaaaa")
         .end((err, res) => {
-          expect(res.status).to.equal(500);
+          expect(res.status).to.equal(400);
           expect(res.body.success).to.be.false;
-          // expect(res.body.msg).to.equal("Bootcamp ID is malformed.");
-          expect(res.body.error).to.contain("Cast to ObjectId failed");
+          expect(res.body.error).to.contain(
+            "Bootcamp ID 5d713995b721c3bb38c1f5d1aaaaa is malformed",
+          );
           done();
         });
     });
@@ -174,7 +177,7 @@ describe("Bootcamps", () => {
         .request(server)
         .get("/api/v1/bootcamps/5d713995b721c3bb38c1f5d0")
         .end((err, res) => {
-          expect(res.status).to.equal(400);
+          expect(res.status).to.equal(404);
           expect(res.body.success).to.be.false;
           done();
         });
