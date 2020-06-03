@@ -129,15 +129,23 @@ describe("Bootcamps", () => {
     });
   });
 
-  describe("basic routes", () => {
+  describe("Deleting Bootcamp", () => {
     it("allows deleting an existing bootcamp", (done) => {
       chai
         .request(server)
-        .delete("/api/v1/bootcamps/1")
+        .delete("/api/v1/bootcamps/5d713995b721c3bb38c1f5d0")
         .end((err, res) => {
           expect(res.status).to.equal(200);
           expect(res.body.success).to.be.true;
-          expect(res.body.msg).to.equal("Delete Bootcamp 1");
+          done();
+        });
+
+      chai
+        .request(server)
+        .get("/api/v1/bootcamps/5d713995b721c3bb38c1f5d0")
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body.success).to.be.false;
           done();
         });
     });
