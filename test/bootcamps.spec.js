@@ -36,6 +36,7 @@ describe("Bootcamps", () => {
           expect(res.status).to.equal(200);
           expect(res.body).to.be.a("Object");
           expect(res.body.success).to.be.true;
+          expect(res.body.count).to.equal(2);
           expect(res.body.data).to.be.an("array");
           expect(res.body.data).to.have.lengthOf(2);
           done();
