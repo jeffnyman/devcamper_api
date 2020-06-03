@@ -52,6 +52,10 @@ describe("Bootcamps", () => {
         .end((err, res) => {
           expect(res.status).to.equal(201);
           expect(res.body.success).to.be.true;
+          expect(res.body.data.name).to.equal("Test Bootcamp");
+          expect(res.body.data.description).to.equal(
+            "Test Bootcamp Description",
+          );
           done();
         });
     });
