@@ -82,11 +82,11 @@ describe("Bootcamps", () => {
     it("allows retrieving a single bootcamp", (done) => {
       chai
         .request(server)
-        .get("/api/v1/bootcamps/1")
+        .get("/api/v1/bootcamps/5d713995b721c3bb38c1f5d0")
         .end((err, res) => {
           expect(res.status).to.equal(200);
           expect(res.body.success).to.be.true;
-          expect(res.body.msg).to.equal("Show Bootcamp 1");
+          expect(res.body.data.name).to.equal("Devworks Bootcamp");
           done();
         });
     });
