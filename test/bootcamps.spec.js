@@ -27,8 +27,8 @@ describe("Bootcamps", () => {
     await server.close();
   });
 
-  describe("Get Bootcamps", () => {
-    it("allows retrieving all bootcamps", (done) => {
+  describe("GET", () => {
+    it("retrieves all bootcamps", (done) => {
       chai
         .request(server)
         .get("/api/v1/bootcamps")
@@ -43,7 +43,7 @@ describe("Bootcamps", () => {
         });
     });
 
-    it("allows retrieving a single bootcamp", (done) => {
+    it("retrieves a single bootcamp", (done) => {
       chai
         .request(server)
         .get("/api/v1/bootcamps/5d713995b721c3bb38c1f5d0")
@@ -62,6 +62,7 @@ describe("Bootcamps", () => {
         .end((err, res) => {
           expect(res.status).to.equal(400);
           expect(res.body.success).to.be.false;
+          expect(res.body.msg).to.equal("Bootcamp was not found.");
           done();
         });
     });
@@ -73,12 +74,13 @@ describe("Bootcamps", () => {
         .end((err, res) => {
           expect(res.status).to.equal(400);
           expect(res.body.success).to.be.false;
+          expect(res.body.msg).to.equal("Bootcamp ID is malformed.");
           done();
         });
     });
   });
 
-  describe("Create New Bootcamps", () => {
+  describe("POST", () => {
     it("will not save an invalid bootcamp", (done) => {
       chai
         .request(server)
@@ -115,8 +117,8 @@ describe("Bootcamps", () => {
     });
   });
 
-  describe("Updating Bootcamps", () => {
-    it("allows updating an existing bootcamp", (done) => {
+  describe("PUT", () => {
+    it("updates an existing bootcamp", (done) => {
       chai
         .request(server)
         .put("/api/v1/bootcamps/5d713995b721c3bb38c1f5d0")
@@ -128,10 +130,36 @@ describe("Bootcamps", () => {
           done();
         });
     });
+
+    it("does not update a bootcamp that does not exist", (done) => {
+      chai
+        .request(server)
+        .put("/api/v1/bootcamps/5d713995b721c3bb38c1f5d1")
+        .send({ name: "Modified Bootcamp Name" })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body.success).to.be.false;
+          expect(res.body.msg).to.equal("Unable to update Bootcamp.");
+          done();
+        });
+    });
+
+    it("does not update a bootcamp with a malformed id", (done) => {
+      chai
+        .request(server)
+        .put("/api/v1/bootcamps/5d713995b721c3bb38c1f5d0aaaaa")
+        .send({ name: "Modified Bootcamp Name" })
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body.success).to.be.false;
+          expect(res.body.msg).to.equal("Bootcamp ID is malformed.");
+          done();
+        });
+    });
   });
 
-  describe("Deleting Bootcamp", () => {
-    it("allows deleting an existing bootcamp", (done) => {
+  describe("DELETE", () => {
+    it("deletes an existing bootcamp", (done) => {
       chai
         .request(server)
         .delete("/api/v1/bootcamps/5d713995b721c3bb38c1f5d0")
@@ -147,6 +175,30 @@ describe("Bootcamps", () => {
         .end((err, res) => {
           expect(res.status).to.equal(400);
           expect(res.body.success).to.be.false;
+          done();
+        });
+    });
+
+    it("does not delete a bootcamp that does not exist", (done) => {
+      chai
+        .request(server)
+        .delete("/api/v1/bootcamps/5d713995b721c3bb38c1f5d1")
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body.success).to.be.false;
+          expect(res.body.msg).to.equal("Unable to delete Bootcamp.");
+          done();
+        });
+    });
+
+    it("does not delete a bootcamp with a malformed id", (done) => {
+      chai
+        .request(server)
+        .delete("/api/v1/bootcamps/5d713995b721c3bb38c1f5d0aaaa")
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body.success).to.be.false;
+          expect(res.body.msg).to.equal("Bootcamp ID is malformed.");
           done();
         });
     });
