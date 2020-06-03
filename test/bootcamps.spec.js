@@ -27,6 +27,56 @@ describe("Bootcamps", () => {
     await server.close();
   });
 
+  describe("Get Bootcamps", () => {
+    it("allows retrieving all bootcamps", (done) => {
+      chai
+        .request(server)
+        .get("/api/v1/bootcamps")
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body).to.be.a("Object");
+          expect(res.body.success).to.be.true;
+          expect(res.body.data).to.be.an("array");
+          expect(res.body.data).to.have.lengthOf(2);
+          done();
+        });
+    });
+
+    it("allows retrieving a single bootcamp", (done) => {
+      chai
+        .request(server)
+        .get("/api/v1/bootcamps/5d713995b721c3bb38c1f5d0")
+        .end((err, res) => {
+          expect(res.status).to.equal(200);
+          expect(res.body.success).to.be.true;
+          expect(res.body.data.name).to.equal("Devworks Bootcamp");
+          done();
+        });
+    });
+
+    it("provides a bad request for non-existent bootcamp id", (done) => {
+      chai
+        .request(server)
+        .get("/api/v1/bootcamps/5d713995b721c3bb38c1f5d1")
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body.success).to.be.false;
+          done();
+        });
+    });
+
+    it("provides a bad request for invalid bootcamp id", (done) => {
+      chai
+        .request(server)
+        .get("/api/v1/bootcamps/5d713995b721c3bb38c1f5d1aaaaa")
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body.success).to.be.false;
+          done();
+        });
+    });
+  });
+
   describe("Create New Bootcamps", () => {
     it("will not save an invalid bootcamp", (done) => {
       chai
@@ -65,32 +115,6 @@ describe("Bootcamps", () => {
   });
 
   describe("basic routes", () => {
-    it("allows retrieving all bootcamps", (done) => {
-      chai
-        .request(server)
-        .get("/api/v1/bootcamps")
-        .end((err, res) => {
-          expect(res.status).to.equal(200);
-          expect(res.body).to.be.a("Object");
-          expect(res.body.success).to.be.true;
-          expect(res.body.data).to.be.an("array");
-          expect(res.body.data).to.have.lengthOf(2);
-          done();
-        });
-    });
-
-    it("allows retrieving a single bootcamp", (done) => {
-      chai
-        .request(server)
-        .get("/api/v1/bootcamps/5d713995b721c3bb38c1f5d0")
-        .end((err, res) => {
-          expect(res.status).to.equal(200);
-          expect(res.body.success).to.be.true;
-          expect(res.body.data.name).to.equal("Devworks Bootcamp");
-          done();
-        });
-    });
-
     it("allows updating an existing bootcamp", (done) => {
       chai
         .request(server)
