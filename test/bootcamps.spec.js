@@ -114,19 +114,22 @@ describe("Bootcamps", () => {
     });
   });
 
-  describe("basic routes", () => {
+  describe("Updating Bootcamps", () => {
     it("allows updating an existing bootcamp", (done) => {
       chai
         .request(server)
-        .put("/api/v1/bootcamps/1")
+        .put("/api/v1/bootcamps/5d713995b721c3bb38c1f5d0")
+        .send({ name: "Modified Bootcamp Name" })
         .end((err, res) => {
           expect(res.status).to.equal(200);
           expect(res.body.success).to.be.true;
-          expect(res.body.msg).to.equal("Update Bootcamp 1");
+          expect(res.body.data.name).to.equal("Modified Bootcamp Name");
           done();
         });
     });
+  });
 
+  describe("basic routes", () => {
     it("allows deleting an existing bootcamp", (done) => {
       chai
         .request(server)
