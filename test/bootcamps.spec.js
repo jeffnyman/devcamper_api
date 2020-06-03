@@ -2,6 +2,7 @@ process.env.NODE_ENV = "test";
 
 const mongoose = require("mongoose");
 const dbHandler = require("./db-handler");
+const seedBootcamps = require("./db-seed-bootcamp");
 
 let chai = require("chai");
 let expect = require("chai").expect;
@@ -12,6 +13,8 @@ chai.use(chaiHttp);
 
 // Connect to a new in-memory database before running any tests.
 beforeAll(async () => await dbHandler.connect());
+
+beforeEach(async () => await seedBootcamps());
 
 // Clear all test data after every test.
 afterEach(async () => await dbHandler.clearDatabase());
@@ -70,7 +73,8 @@ describe("Bootcamps", () => {
           expect(res.status).to.equal(200);
           expect(res.body).to.be.a("Object");
           expect(res.body.success).to.be.true;
-          expect(res.body.msg).to.equal("Show All Bootcamps");
+          expect(res.body.data).to.be.an("array");
+          expect(res.body.data).to.have.lengthOf(2);
           done();
         });
     });
@@ -86,18 +90,6 @@ describe("Bootcamps", () => {
           done();
         });
     });
-
-    // it("allows creating a new bootcamp", (done) => {
-    //   chai
-    //     .request(server)
-    //     .post("/api/v1/bootcamps")
-    //     .end((err, res) => {
-    //       expect(res.status).to.equal(200);
-    //       expect(res.body.success).to.be.true;
-    //       expect(res.body.msg).to.equal("Create New Bootcamp");
-    //       done();
-    //     });
-    // });
 
     it("allows updating an existing bootcamp", (done) => {
       chai
