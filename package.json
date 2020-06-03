@@ -4,7 +4,7 @@
   "description": "DevCamper Backend API",
   "main": "server.js",
   "scripts": {
-    "test": "mocha",
+    "test": "jest --detectOpenHandles",
     "start": "NODE_ENV=production node server",
     "dev": "nodemon -L server"
   },
@@ -20,7 +20,11 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
-    "mocha": "^7.2.0",
+    "jest": "^26.0.1",
     "nodemon": "^2.0.4"
+  },
+  "jest": {
+    "bail": true,
+    "testEnvironment": "node"
   }
 }

@@ -8,7 +8,25 @@ let chaiHttp = require("chai-http");
 chai.use(chaiHttp);
 
 describe("Bootcamps", () => {
-  context("basic routes", () => {
+  afterEach(async () => {
+    await server.close();
+  });
+
+  describe("Create New Bootcamps", () => {
+    it("will not save an invalid bootcamp", (done) => {
+      chai
+        .request(server)
+        .post("/api/v1/bootcamps")
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body.success).to.be.false;
+          expect(res.body.msg).to.equal("Unable to create Bootcamp.");
+          done();
+        });
+    });
+  });
+
+  describe("basic routes", () => {
     it("allows retrieving all bootcamps", (done) => {
       chai
         .request(server)
@@ -34,17 +52,17 @@ describe("Bootcamps", () => {
         });
     });
 
-    it("allows creating a new bootcamp", (done) => {
-      chai
-        .request(server)
-        .post("/api/v1/bootcamps")
-        .end((err, res) => {
-          expect(res.status).to.equal(200);
-          expect(res.body.success).to.be.true;
-          expect(res.body.msg).to.equal("Create New Bootcamp");
-          done();
-        });
-    });
+    // it("allows creating a new bootcamp", (done) => {
+    //   chai
+    //     .request(server)
+    //     .post("/api/v1/bootcamps")
+    //     .end((err, res) => {
+    //       expect(res.status).to.equal(200);
+    //       expect(res.body.success).to.be.true;
+    //       expect(res.body.msg).to.equal("Create New Bootcamp");
+    //       done();
+    //     });
+    // });
 
     it("allows updating an existing bootcamp", (done) => {
       chai
