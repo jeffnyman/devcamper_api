@@ -72,9 +72,10 @@ describe("Bootcamps", () => {
         .request(server)
         .get("/api/v1/bootcamps/5d713995b721c3bb38c1f5d1aaaaa")
         .end((err, res) => {
-          expect(res.status).to.equal(400);
+          expect(res.status).to.equal(500);
           expect(res.body.success).to.be.false;
-          expect(res.body.msg).to.equal("Bootcamp ID is malformed.");
+          // expect(res.body.msg).to.equal("Bootcamp ID is malformed.");
+          expect(res.body.error).to.contain("Cast to ObjectId failed");
           done();
         });
     });
