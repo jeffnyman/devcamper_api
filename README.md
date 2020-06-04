@@ -12,6 +12,14 @@ MONGO_URI = mongodb+srv://<username>:<password>@devcamper-wisqb.mongodb.net/devc
 
 Here you have to replace `<username>` and `<password>` with your own credentials. Note that this file is part is ignored by Git and thus is not checked in as part of the versioning process.
 
+It is also necessary to provide a `geocoder.env` file in the `config` directory that has the following:
+
+```
+GEOCODER_API_KEY=<your consumer key>
+```
+
+Here you have to enter your consumer key from the MapQuest developer setup.
+
 For development purposes, you can start the server with:
 
 ```
