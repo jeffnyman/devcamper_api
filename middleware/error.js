@@ -1,7 +1,20 @@
+const ErrorResponse = require("../utils/errorResponse");
+
 const errorHandler = (err, req, res, next) => {
-  res.status(err.statusCode || 500).json({
+  let error = { ...err };
+
+  error.message = err.message;
+
+  // Handling a bad Mongoose ObjectId.
+  if (err.name === "CastError") {
+    const message = `Bootcamp ID ${err.value} is malformed`;
+
+    error = new ErrorResponse(message, 400);
+  }
+
+  res.status(error.statusCode || 500).json({
     success: false,
-    error: err.message || "Server Error",
+    error: error.message || "Server Error",
   });
 };
 
