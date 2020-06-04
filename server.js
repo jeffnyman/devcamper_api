@@ -7,6 +7,7 @@ const connectDB = require("./config/db");
 
 dotenv.config({ path: "./config/config.env" });
 dotenv.config({ path: "./config/mongodb.env" });
+dotenv.config({ path: "./config/geocoder.env" });
 
 // Connect to the database.
 if (process.env.NODE_ENV !== "test") {

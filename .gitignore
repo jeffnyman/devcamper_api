@@ -1,5 +1,6 @@
 # MongoDB credential string
 config/mongodb.env
+config/geocoder.env
 
 # Node files
 node_modules/

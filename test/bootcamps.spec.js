@@ -109,7 +109,7 @@ describe("Bootcamps", () => {
       let bootcamp = {
         name: "Test Bootcamp",
         description: "Test Bootcamp Description",
-        address: "1137 Tester Lane",
+        address: "220 Pawtucket St, Lowell, MA 01854-3502, US",
         careers: ["Web Development"],
       };
 
@@ -133,7 +133,7 @@ describe("Bootcamps", () => {
       let bootcamp = {
         name: "Test Bootcamp",
         description: "Test Bootcamp Description",
-        address: "1137 Tester Lane",
+        address: "220 Pawtucket St, Lowell, MA 01854-3502, US",
         careers: ["Web Development"],
       };
 
