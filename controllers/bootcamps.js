@@ -74,9 +74,12 @@ exports.updateBootcamp = async (req, res, next) => {
     });
 
     if (!bootcamp) {
-      return res
-        .status(400)
-        .json({ success: false, msg: "Unable to update Bootcamp." });
+      return next(
+        new ErrorResponse(
+          `Bootcamp with ID ${req.params.id} was not found`,
+          404,
+        ),
+      );
     }
 
     res.status(200).json({ success: true, data: bootcamp });

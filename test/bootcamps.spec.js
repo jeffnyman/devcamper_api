@@ -150,9 +150,11 @@ describe("Bootcamps", () => {
         .put("/api/v1/bootcamps/5d713995b721c3bb38c1f5d1")
         .send({ name: "Modified Bootcamp Name" })
         .end((err, res) => {
-          expect(res.status).to.equal(400);
+          expect(res.status).to.equal(404);
           expect(res.body.success).to.be.false;
-          expect(res.body.msg).to.equal("Unable to update Bootcamp.");
+          expect(res.body.error).to.equal(
+            "Bootcamp with ID 5d713995b721c3bb38c1f5d1 was not found",
+          );
           done();
         });
     });
