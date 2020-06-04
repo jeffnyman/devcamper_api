@@ -124,6 +124,7 @@ describe("Bootcamps", () => {
           expect(res.body.data.description).to.equal(
             "Test Bootcamp Description",
           );
+          expect(res.body.data.slug).to.equal("test-bootcamp");
           done();
         });
     });
