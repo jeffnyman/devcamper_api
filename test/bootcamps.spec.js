@@ -128,6 +128,38 @@ describe("Bootcamps", () => {
           done();
         });
     });
+
+    it("will not save a duplicate bootcamp", (done) => {
+      let bootcamp = {
+        name: "Test Bootcamp",
+        description: "Test Bootcamp Description",
+        address: "1137 Tester Lane",
+        careers: ["Web Development"],
+      };
+
+      chai
+        .request(server)
+        .post("/api/v1/bootcamps")
+        .send(bootcamp)
+        .end((err, res) => {
+          expect(res.status).to.equal(201);
+          expect(res.body.success).to.be.true;
+          done();
+        });
+
+      chai
+        .request(server)
+        .post("/api/v1/bootcamps")
+        .send(bootcamp)
+        .end((err, res) => {
+          expect(res.status).to.equal(400);
+          expect(res.body.success).to.be.false;
+          expect(res.body.error).to.equal(
+            "Duplicate field entered: name; value is Test Bootcamp",
+          );
+          done();
+        });
+    });
   });
 
   describe("PUT", () => {
