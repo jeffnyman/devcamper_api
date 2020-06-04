@@ -90,9 +90,18 @@ describe("Bootcamps", () => {
         .request(server)
         .post("/api/v1/bootcamps")
         .end((err, res) => {
-          expect(res.status).to.equal(400);
+          expect(res.status).to.equal(500);
           expect(res.body.success).to.be.false;
-          expect(res.body.msg).to.equal("Unable to create Bootcamp.");
+          expect(res.body.error).to.contain("Bootcamp validation failed");
+          expect(res.body.error).to.contain(
+            "address: Please enter an address for the Bootcamp.",
+          );
+          expect(res.body.error).to.contain(
+            "description: Please add some descriptive text for the Bootcamp.",
+          );
+          expect(res.body.error).to.contain(
+            "name: Please add a name for the Bootcamp.",
+          );
           done();
         });
     });
@@ -156,7 +165,9 @@ describe("Bootcamps", () => {
         .end((err, res) => {
           expect(res.status).to.equal(400);
           expect(res.body.success).to.be.false;
-          expect(res.body.msg).to.equal("Bootcamp ID is malformed.");
+          expect(res.body.error).to.contain(
+            "Bootcamp ID 5d713995b721c3bb38c1f5d0aaaaa is malformed",
+          );
           done();
         });
     });
@@ -202,7 +213,9 @@ describe("Bootcamps", () => {
         .end((err, res) => {
           expect(res.status).to.equal(400);
           expect(res.body.success).to.be.false;
-          expect(res.body.msg).to.equal("Bootcamp ID is malformed.");
+          expect(res.body.error).to.contain(
+            "Bootcamp ID 5d713995b721c3bb38c1f5d0aaaa is malformed",
+          );
           done();
         });
     });
