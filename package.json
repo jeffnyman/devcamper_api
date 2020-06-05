@@ -4,8 +4,8 @@
   "description": "DevCamper Backend API",
   "main": "server.js",
   "scripts": {
-    "test": "jest --detectOpenHandles --runInBand",
-    "start": "NODE_ENV=production node server",
+    "test": "env NODE_ENV=test jest --detectOpenHandles --runInBand",
+    "start": "env NODE_ENV=production node server",
     "dev": "nodemon -L server"
   },
   "author": "Jeff Nyman",
@@ -28,6 +28,9 @@
   },
   "jest": {
     "bail": true,
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "setupFiles": [
+      "./config/jestVars.js"
+    ]
   }
 }

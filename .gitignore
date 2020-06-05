@@ -1,6 +1,7 @@
 # MongoDB credential string
 config/mongodb.env
 config/geocoder.env
+config/jestVars.js
 
 # Node files
 node_modules/

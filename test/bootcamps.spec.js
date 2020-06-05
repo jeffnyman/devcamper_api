@@ -131,7 +131,7 @@ describe("Bootcamps", () => {
 
     it("will not save a duplicate bootcamp", (done) => {
       let bootcamp = {
-        name: "Test Bootcamp",
+        name: "Devworks Bootcamp",
         description: "Test Bootcamp Description",
         address: "220 Pawtucket St, Lowell, MA 01854-3502, US",
         careers: ["Web Development"],
@@ -142,20 +142,10 @@ describe("Bootcamps", () => {
         .post("/api/v1/bootcamps")
         .send(bootcamp)
         .end((err, res) => {
-          expect(res.status).to.equal(201);
-          expect(res.body.success).to.be.true;
-          done();
-        });
-
-      chai
-        .request(server)
-        .post("/api/v1/bootcamps")
-        .send(bootcamp)
-        .end((err, res) => {
           expect(res.status).to.equal(400);
           expect(res.body.success).to.be.false;
           expect(res.body.error).to.equal(
-            "Duplicate field entered: name; value is Test Bootcamp",
+            "Duplicate field entered: name; value is Devworks Bootcamp",
           );
           done();
         });
