@@ -32,6 +32,15 @@ If you want to run tests, do the following from the project root:
 npm test
 ```
 
+As a note on the tests, in order to have them run correctly with the geocoder, you need to create a file called `jestVars.js` in the `config` directory. In that file you will need the following:
+
+```
+process.env.GEOCODER_PROVIDER = "mapquest";
+process.env.GEOCODER_API_KEY = "<your consumer key>";
+```
+
+Here you have to enter your consumer key from the MapQuest developer setup. This is required due to how Jest deals with the `process.env` setting.
+
 Resource route structure of the application:
 
 - /api/v1/bootcamps
