@@ -18,6 +18,27 @@ async function seedBootcamps() {
       address: "220 Pawtucket St, Lowell, MA 01854",
       careers: ["Web Development", "UI/UX", "Mobile Development"],
     },
+    {
+      _id: new objectID("5d725a037b292f5f8ceff787"),
+      name: "Codemasters",
+      description:
+        "Codemasters will give you the skills and the tools to become the best developer possible.",
+      address: "85 South Prospect Street Burlington VT 05405",
+      careers: ["Web Development", "Data Science", "Business"],
+    },
+    {
+      _id: new objectID("5d725a1b7b292f5f8ceff788"),
+      name: "Devcentral Bootcamp",
+      description:
+        "Devcentral Bootcamp will give you the skills and the tools to become the best developer possible.",
+      address: "45 Upper College Rd Kingston RI 02881",
+      careers: [
+        "Mobile Development",
+        "Web Development",
+        "Data Science",
+        "Business",
+      ],
+    },
   ];
 
   const seededBootcamps = await Bootcamp.insertMany(bootcamps);

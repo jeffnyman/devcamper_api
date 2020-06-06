@@ -57,6 +57,8 @@ process.env.GEOCODER_API_KEY = "<your consumer key>";
 
 Here you have to enter your consumer key from the MapQuest developer setup. This is required due to how Jest deals with the `process.env` setting. Note that this file will not be included as part of the versioning.
 
+**Test Note:** Currently radius tests do not work. It's unclear to me as to why but I suspect this is another oddity of Jest, a test tool that I'm growing to dislike intensely for all the workarounds I have to do to get it work. Right now what happens is that you can use Postman to clearly see radius calls are working. However, Jest somehow swallows any bootcamps that are returned from an API route that uses something like "radius/02118/10".
+
 ## Resource Routes
 
 The resource route structure of the application will be as follows:
